@@ -1,5 +1,6 @@
 import MortgagePage from '../pageobjects/mortgage.page';
 import MortgageResultsPage from '../pageobjects/mortgage-results.page';
+import MortgageApplicationPage from '../pageobjects/mortgage-application.page';
 import { defineSupportCode } from 'cucumber';
 
 const locator = {
@@ -24,6 +25,10 @@ defineSupportCode(({ Then }) => {
     Then(/^I verify the results with below following rates available$/, (results) => {
         // eslint-disable-next-line no-console
         const data = results.raw();
-        data.map(item => MortgageResultsPage.verifyResults(item));
+        data.map((item, index) => MortgageResultsPage.verifyResults(item, index));
+    });
+
+    Then(/^I should be directed to the "([^"]*)"$/, (pageTitle) => {
+        MortgageApplicationPage.verifyApplicationPageTitle(pageTitle);
     });
 });

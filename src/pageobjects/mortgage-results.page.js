@@ -40,10 +40,37 @@ class MortgageResultsPage extends Page {
         pause(1000);
     }
 
-    verifyResults(item) {
+    verifyResults(item, index) {
+        // verify fixed years
         const selector = item[0];
         const yearsFixed = item[1];
         browser.getText(locators[selector]).includes(yearsFixed);
+
+        // verify 2 years monthly payment
+        const monthlyPayments = item[2];
+        browser.getText(`.ratesTableWrapper:nth-child(${index + 1}) td:nth-child(1) > div.keyData > strong`).should.equal(monthlyPayments);
+
+        // verify 2years initial rate
+        const initialRate = item[3];
+        browser.getText(`.ratesTableWrapper:nth-child(${index + 1}) td.initialRateCell > div.keyData > strong`).should.equal(initialRate);
+
+        // verify the product fee
+        const productFee = item[4];
+        browser.getText(`.ratesTableWrapper:nth-child(${index + 1}) td:nth-child(3) > .keyData`).should.equal(productFee);
+
+        // verifies 2years Overall Cost For Comparison
+        const costComparison = item[5];
+        browser.getText(`.ratesTableWrapper:nth-child(${index + 1}) td:nth-child(4) > div.keyData > strong`).should.equal(costComparison);
+
+        // verify Total paid over 2 years (excludes product fee)
+        const totalProductValue = item[6];
+        browser.getText(`.ratesTableWrapper:nth-child(${index + 1}) div > table > tbody > tr:nth-child(2) > td.penultimate > div.keyData`).should.equal(totalProductValue);
+    }
+
+    applyForProduct(productName) {
+        browser.click('.ratesTableWrapper:nth-child(3) tr:nth-child(1) .iconText:nth-child(3)');
+        pause(2000);
+        browser.click(`[data-productname="${productName}"]`);
     }
 }
 

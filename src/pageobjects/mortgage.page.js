@@ -19,7 +19,7 @@ class MortgagePage extends Page {
 
     get searchPropertyValue() { return $("[data-di-id='#SearchPropertyValue']"); }
 
-    get searchDepositAmount() { return $("[data-di-id='#SearchDepositAmount']"); }
+    get searchMortgageAmount() { return $("[data-di-id='#SearchMortgageAmount']"); }
 
     get searchMortgageTerm() { return $("[data-di-id='#SearchMortgageTerm']"); }
 
@@ -30,19 +30,24 @@ class MortgagePage extends Page {
     /**
      * define or overwrite page methods
      */
-    open() {
-        super.open('https://www.nationwide.co.uk');
+
+    open(url) {
+        super.open(url);
         pause(1000);
+    }
+
+    verifyPageTitle(pageTitle) {
+        browser.getTitle().should.equal(pageTitle);
     }
 
     clickMortgageBtn() {
         this.mortgage.click();
-        pause(1000);
+        pause(2000);
     }
 
     clickFirstTimeBuyersBtn() {
         this.firstTimeBuyers.click();
-        pause(1000);
+        pause(2000);
     }
 
     clickOurMortgageRatesBtn() {
@@ -53,26 +58,30 @@ class MortgagePage extends Page {
     clickHaveNationwideMortgageNoBtn() {
         const scopeThis = this;
         waitUntil(scopeThis.selectorHaveNationwideMortgageNo.click(), 1000);
+        pause(1000);
     }
 
     clickNationwideMortgageTypeChangingLenderBtn() {
         const scopeThis = this;
         waitUntil(scopeThis.selectorNationwideMortgageTypeChangingLender.click(), 1000);
+        pause(1000);
     }
 
     setSearchPropertyValue(value) {
         const scopeThis = this;
+        waitForVisible(scopeThis.searchPropertyValue, 2000);
         waitUntil(scopeThis.searchPropertyValue.setValue(value), 1000);
     }
 
-    setSearchDepositAmount(amount) {
+    setSearchMortgageAmount(amount) {
         const scopeThis = this;
-        waitUntil(scopeThis.searchDepositAmount.setValue(amount), 1000);
+        waitForVisible(scopeThis.searchMortgageAmount, 2000);
+        waitUntil(scopeThis.searchMortgageAmount.setValue(amount), 1000);
     }
 
-    setSearchMortgageTerm(value) {
+    setSearchMortgageTerm(term) {
         const scopeThis = this;
-        waitUntil(scopeThis.searchMortgageTerm.setValue(value), 1000);
+        waitUntil(scopeThis.searchMortgageTerm.setValue(term), 2000);
     }
 
     clickFindAMortgageRatesButton() {

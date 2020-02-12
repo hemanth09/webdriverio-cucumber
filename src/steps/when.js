@@ -14,4 +14,8 @@ defineSupportCode(({ When }) => {
     When(/^I apply filters of Product fee to “With Fee”$/, () => {
         MortgageResultsPage.clickWithFee();
     });
+
+    When(/^I click and apply for the "([^"]*)" product$/, (productName) => {
+        MortgageResultsPage.applyForProduct(productName);
+    });
 });
