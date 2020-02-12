@@ -1,17 +1,17 @@
 import Page from './page';
 import pause from '../support/actions/pause';
-
-const locators = {
-    pageTitle: 'h1.headingSize02',
-};
+import waitForVisible from '../support/actions/waitForVisible';
 
 class MortApplicationPage extends Page {
+    get pageTitle() { return $('h1.headingSize02'); }
+
     /**
      * define or overwrite page methods
      */
 
     verifyApplicationPageTitle(pageTitle) {
-        browser.getText(locators.pageTitle).should.equal(pageTitle);
+        waitForVisible(this.pageTitle, 3000);
+        this.pageTitle.getText().should.equal(pageTitle);
         pause(2000);
     }
 }

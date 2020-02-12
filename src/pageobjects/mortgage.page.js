@@ -13,7 +13,7 @@ class MortgagePage extends Page {
 
     get ourMortgageRates() { return $("[data-di-id='di-id-2389c534-d514f9c3']"); }
 
-    get selectorHaveNationwideMortgageNo() { return $("//*[@id='selectorItemHaveNationwideMortgage1']"); }
+    get selectorHaveNationwideMortgageNo() { return $("[data-di-id='#selectorItemHaveNationwideMortgage1']"); }
 
     get selectorNationwideMortgageTypeChangingLender() { return $("//*[@id='selectorItemNationwideMortgageTypeNo2']"); }
 
@@ -57,12 +57,14 @@ class MortgagePage extends Page {
 
     clickHaveNationwideMortgageNoBtn() {
         const scopeThis = this;
+        waitForVisible(scopeThis.selectorHaveNationwideMortgageNo, 2000);
         waitUntil(scopeThis.selectorHaveNationwideMortgageNo.click(), 1000);
         pause(1000);
     }
 
     clickNationwideMortgageTypeChangingLenderBtn() {
         const scopeThis = this;
+        waitForVisible(scopeThis.selectorNationwideMortgageTypeChangingLender, 2000);
         waitUntil(scopeThis.selectorNationwideMortgageTypeChangingLender.click(), 1000);
         pause(1000);
     }
