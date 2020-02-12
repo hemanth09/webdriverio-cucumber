@@ -48,3 +48,5 @@ rules:
   class-methods-use-this: "off"
   no-undef: "off"
   no-control-regex: "off"
+  import/order: "off"
+  no-unused-expressions: "off"

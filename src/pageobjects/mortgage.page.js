@@ -1,4 +1,7 @@
 import Page from './page';
+import pause from '../support/actions/pause';
+import waitForVisible from '../support/actions/waitForVisible';
+import waitUntil from '../support/actions/waitUntil';
 
 class MortgagePage extends Page {
     /**
@@ -22,68 +25,64 @@ class MortgagePage extends Page {
 
     get findAMortgageRateBtn() { return $("[data-di-id='#myButton']"); }
 
+    get resultsList() { return $('.results.mortgageRatesResultsNew'); }
+
     /**
      * define or overwrite page methods
      */
     open() {
         super.open('https://www.nationwide.co.uk');
+        pause(1000);
     }
 
     clickMortgageBtn() {
-        return this.mortgage.click();
+        this.mortgage.click();
+        pause(1000);
     }
 
     clickFirstTimeBuyersBtn() {
-        return this.firstTimeBuyers.click();
+        this.firstTimeBuyers.click();
+        pause(1000);
     }
 
     clickOurMortgageRatesBtn() {
         const scopeThis = this;
-        setTimeout(() => {
-            scopeThis.ourMortgageRates.click();
-        }, 1000);
+        waitUntil(scopeThis.ourMortgageRates.click(), 1000);
     }
 
     clickHaveNationwideMortgageNoBtn() {
         const scopeThis = this;
-        setTimeout(() => {
-            scopeThis.selectorHaveNationwideMortgageNo.click();
-        }, 1000);
+        waitUntil(scopeThis.selectorHaveNationwideMortgageNo.click(), 1000);
     }
 
     clickNationwideMortgageTypeChangingLenderBtn() {
         const scopeThis = this;
-        setTimeout(() => {
-            scopeThis.selectorNationwideMortgageTypeChangingLender.click();
-        }, 1000);
+        waitUntil(scopeThis.selectorNationwideMortgageTypeChangingLender.click(), 1000);
     }
 
     setSearchPropertyValue(value) {
         const scopeThis = this;
-        setTimeout(() => {
-            scopeThis.searchPropertyValue.setValue(value);
-        }, 1000);
+        waitUntil(scopeThis.searchPropertyValue.setValue(value), 1000);
     }
 
     setSearchDepositAmount(amount) {
         const scopeThis = this;
-        setTimeout(() => {
-            scopeThis.searchDepositAmount.setValue(amount);
-        }, 1000);
+        waitUntil(scopeThis.searchDepositAmount.setValue(amount), 1000);
     }
 
     setSearchMortgageTerm(value) {
         const scopeThis = this;
-        setTimeout(() => {
-            scopeThis.searchDepositAmount.setValue(value);
-        }, 1000);
+        waitUntil(scopeThis.searchMortgageTerm.setValue(value), 1000);
     }
 
     clickFindAMortgageRatesButton() {
         const scopeThis = this;
-        setTimeout(() => {
-            scopeThis.findAMortgageRateBtn.click();
-        }, 5000);
+        waitUntil(scopeThis.findAMortgageRateBtn.click(), 5000);
+    }
+
+    isSearched() {
+        waitForVisible(this.resultsList, 5000);
+        return this.resultsList.isVisible();
     }
 }
 
